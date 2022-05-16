@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.views.generic import CreateView,FormView
 from users.models import User
 from users.forms import UserRegistrationForm,LoginForm
@@ -32,7 +32,7 @@ class SignInView(FormView):
             if request.user.is_candidate:
                 return render(request, "candidatehome.html")
             else:
-                return render(request, "emphome.html")
+                return redirect("emp-home")
 
 
 
