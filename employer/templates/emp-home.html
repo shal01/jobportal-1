@@ -6,5 +6,11 @@
 </head>
 <body>
 <h1>welcome {{request.user}}</h1>
+
+{%if request.user.employer%}
+    <a href="{%url 'emp-profdetail'%}">view profile</a>
+{%else%}
+    <a href="{%url 'emp-profile'%}">add profile</a>
+{%endif%}
 </body>
 </html>
