@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import TemplateView,CreateView
+from django.views.generic import TemplateView,CreateView,ListView,DetailView
 from django.urls import reverse_lazy
 from employer.forms import EmployerProfileForm,JobForm
 from employer.models import EmployerProfile,Jobs
@@ -37,3 +37,17 @@ class JobCreateView(CreateView):
         return super().form_valid(form)
 
 
+class EmployerJobListView(ListView):
+    model = Jobs
+    context_object_name = "jobs"
+    template_name = "emp-joblist.html"
+
+    def get_queryset(self):
+        return Jobs.objects.filter(posted_by=self.request.user)
+
+
+class JobDetailView(DetailView):
+    model = Jobs
+    template_name = "emp-jobdetail.html"
+    context_object_name = "job"
+    pk_url_kwarg = "id"
