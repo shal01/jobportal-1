@@ -15,3 +15,9 @@ class JobForm(forms.ModelForm):
         widgets = {
             "last_date": forms.DateInput(attrs={"class": "form-control", "type": "date"})
         }
+
+
+class JobUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Jobs
+        exclude = ("posted_by", "created_date")

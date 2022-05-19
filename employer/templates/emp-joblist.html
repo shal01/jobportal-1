@@ -43,7 +43,7 @@
                 <td>{{job.created_date}}</td>
                 <td>
                     <a class="btn btn-outline-primary" href="{%url 'emp-jobdetail' job.id%}">Details</a>
-                    <a class="btn btn-outline-primary" href="">Update</a>
+                    <a class="btn btn-outline-primary" href="{%url 'emp-jobedit' job.id%}">Update</a>
                     <a class="btn btn-outline-primary" href="">View Application</a>
                 </td>
                 {%endfor%}

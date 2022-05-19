@@ -1,7 +1,7 @@
 from django.shortcuts import render
-from django.views.generic import TemplateView,CreateView,ListView,DetailView
+from django.views.generic import TemplateView,CreateView,ListView,DetailView,UpdateView
 from django.urls import reverse_lazy
-from employer.forms import EmployerProfileForm,JobForm
+from employer.forms import EmployerProfileForm,JobForm,JobUpdateForm
 from employer.models import EmployerProfile,Jobs
 
 # Create your views here.
@@ -50,4 +50,12 @@ class JobDetailView(DetailView):
     model = Jobs
     template_name = "emp-jobdetail.html"
     context_object_name = "job"
+    pk_url_kwarg = "id"
+
+
+class JobEditView(UpdateView):
+    model = Jobs
+    form_class = JobUpdateForm
+    template_name = "emp-jobedit.html"
+    success_url = reverse_lazy("emp-listjob")
     pk_url_kwarg = "id"
