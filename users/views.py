@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from django.views.generic import CreateView,FormView
+from django.views.generic import CreateView,FormView,TemplateView
 from users.models import User
 from users.forms import UserRegistrationForm,LoginForm
 from django.urls import reverse_lazy
@@ -35,4 +35,5 @@ class SignInView(FormView):
                 return redirect("emp-home")
 
 
-
+class HomeView(TemplateView):
+    template_name = "home.html"
