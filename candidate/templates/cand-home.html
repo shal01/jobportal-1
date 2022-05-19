@@ -7,8 +7,12 @@
 <body>
 <h1>welcome ..{{request.user}}</h1>
 
+{%if request.user.candidates%}
+    <a href="{%url 'cand-profdetail'%}">View profile</a>
+{%else%}
+    <a href="{%url 'cand-addprofile'%}">add profile</a>
+{%endif%}
 
-<a href="">add profile</a>
 <a href="">all jobs</a>
 </body>
 </html>
