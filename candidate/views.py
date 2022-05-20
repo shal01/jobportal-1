@@ -1,8 +1,9 @@
 from django.shortcuts import render,redirect
 from django.urls import reverse_lazy
 from candidate.forms import CandidateProfileForm
-from django.views.generic import TemplateView,CreateView
+from django.views.generic import TemplateView,CreateView,ListView,DetailView
 from candidate.models import CandidateProfile
+from employer.models import Jobs,Applications
 
 
 # Create your views here.
@@ -24,3 +25,24 @@ class CandidateProfileCreateView(CreateView):
 
 class CandidateProfileDetailView(TemplateView):
     template_name = "cand-myprofile.html"
+
+
+class CandidateJobListView(ListView):
+    model = Jobs
+    template_name = "cand-Listjobs.html"
+    context_object_name = "jobs"
+
+
+class CandidateJobDetailView(DetailView):
+    model = Jobs
+    template_name = "cand-jobdetail.html"
+    pk_url_kwarg = "id"
+    context_object_name = "job"
+
+
+def apply_now(request,*args,**kwargs):
+    job_id = kwargs.get("id")
+    job = Jobs.objects.get(id=job_id)
+    applicant = request.user
+    Applications.objects.create(applicant=applicant,job=job)
+    return redirect("cand-home")

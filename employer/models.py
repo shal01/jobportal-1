@@ -27,3 +27,22 @@ class Jobs(models.Model):
 
     def __str__(self):
         return self.job_title
+
+
+class Applications(models.Model):
+    applicant = models.ForeignKey(User, on_delete=models.CASCADE, related_name="applicants")
+    job = models.ForeignKey(Jobs, on_delete=models.CASCADE, related_name="ajob")
+    options = (
+        ("applied", "applied"),
+        ("rejected", "rejected"),
+        ("pending", "pending"),
+        ("cancelled", "cancelled"),
+        ("accepted", "accepted")
+    )
+    status = models.CharField(max_length=20, choices=options, default="applied")
+    date = models.DateField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ("applicant", "job")
+
+
