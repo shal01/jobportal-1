@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User</title>
+    <title>emp-home</title>
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
@@ -15,28 +15,31 @@
 
 </head>
 <body>
-<nav class="navbar navbar-expand-lg" style="background-color: #e3f2fd;">
+<nav class="navbar navbar-expand-lg bg-light">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">Job Portal</a>
+        <a class="navbar-brand" href="#">Employer</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
                 aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav me-auto mb-2 mb-lg-0">
-                <a class="nav-link active" aria-current="page" href="{%url 'users-home'%}">Home</a>
-                <!-- <a class="nav-link" href="#">Features</a>
-                <a class="nav-link" href="#">Pricing</a> -->
+                <a class="nav-link active" aria-current="page" href="{%url 'emp-home'%}">Home</a>
+                {%if request.user.employer%}
+                <a class="nav-link" href="{%url 'emp-profdetail'%}">view profile</a>
+                {%else%}
+                <a class="nav-link" href="{%url 'emp-profile'%}">add profile</a>
+                {%endif%}
+                <a class="nav-link" href="{%url 'emp-addjob'%}">Post Job</a>
+                <a class="nav-link" href="{%url 'emp-listjob'%}">Posted Jobs</a>
+
             </div>
             <div class="navbar-nav mr-auto mb-2 mb-lg-0">
-                <a class="btn btn-outline-info" href="{%url 'signin'%}">SIGN IN</a>
-                <a class="btn btn-outline-warning" href="{%url 'signup'%}">SIGN UP</a>
+                <a class="btn btn-outline-warning" href="{%url 'signout'%}">logout</a>
             </div>
         </div>
     </div>
 </nav>
-<div class="container" style="background-color: #e3f2fd;">
-</div>
 {%block body_block%}
 
 

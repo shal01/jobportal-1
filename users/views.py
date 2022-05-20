@@ -3,7 +3,7 @@ from django.views.generic import CreateView,FormView,TemplateView
 from users.models import User
 from users.forms import UserRegistrationForm,LoginForm
 from django.urls import reverse_lazy
-from django.contrib.auth import authenticate,login
+from django.contrib.auth import authenticate,login,logout
 
 
 # Create your views here.
@@ -37,3 +37,8 @@ class SignInView(FormView):
 
 class HomeView(TemplateView):
     template_name = "home.html"
+
+
+def sign_out(request,*args,**kwargs):
+    logout(request)
+    return redirect("users-home")
