@@ -15,6 +15,14 @@ class UserRegistrationForm(UserCreationForm):
             "phone",
             "role"
         ]
+        widgets = {
+            "first_name": forms.TextInput(attrs={"class": "form-control"}),
+            "username": forms.TextInput(attrs={"class": "form-control"}),
+            "email": forms.EmailInput(attrs={"class": "form-control"}),
+            "phone": forms.NumberInput(attrs={"class": "form-control"}),
+            "role": forms.TextInput(attrs={"class": "form-control"})
+        }
+
 
 class LoginForm(forms.Form):
     username = forms.CharField(widget=forms.TextInput(attrs={"class": "form-control"}))

@@ -21,13 +21,17 @@
                 <tr>
                     <th>Job Title</th>
                     <th>Experience</th>
-                    <th>Created Date</th>
+                    <th>Qualification</th>
+                    <th>Role</th>
+                    <th>Last Date</th>
                     <th>Action</th>
                 </tr>
                 {%for job in jobs%}
                 <td>{{job.job_title}}</td>
                 <td>{{job.experience}}</td>
-                <td>{{job.created_date}}</td>
+                <td>{{job.qualification}}</td>
+                <td>{{job.role}}</td>
+                <td>{{job.last_date}}</td>
                 <td>
                     <a class="btn btn-outline-primary" href="{%url 'emp-jobdetail' job.id%}">Details</a>
                     <a class="btn btn-outline-primary" href="{%url 'emp-jobedit' job.id%}">Update</a>
