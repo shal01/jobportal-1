@@ -27,14 +27,16 @@
                     <th>Action</th>
                 </tr>
                 {%for job in jobs%}
-                <td>{{job.job_title}}</td>
-                <td>{{job.experience}}</td>
-                <td>{{job.qualification}}</td>
-                <td>{{job.role}}</td>
-                <td>{{job.last_date}}</td>
-                <td>
-                    <a class="btn btn-outline-primary" href="{%url 'cand-jobdetail' job.id%}">View</a>
-                </td>
+                <tr>
+                    <td>{{job.job_title}}</td>
+                    <td>{{job.experience}}</td>
+                    <td>{{job.qualification}}</td>
+                    <td>{{job.role}}</td>
+                    <td>{{job.last_date}}</td>
+                    <td>
+                        <a class="btn btn-outline-primary" href="{%url 'cand-jobdetail' job.id%}">View</a>
+                    </td>
+                </tr>
                 {%endfor%}
             </table>
         </div>

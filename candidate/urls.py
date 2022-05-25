@@ -9,4 +9,5 @@ urlpatterns = [
     path("job/all", views.CandidateJobListView.as_view(), name="cand-joblist"),
     path("job/detail/<int:id>", views.CandidateJobDetailView.as_view(), name="cand-jobdetail"),
     path("application/add/<int:id>", views.apply_now, name="apply_now"),
+    path("application/applied", views.MyApplicationView.as_view(), name="cand-myapplic"),
 ]

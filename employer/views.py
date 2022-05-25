@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.views.generic import TemplateView,CreateView,ListView,DetailView,UpdateView
 from django.urls import reverse_lazy
 from employer.forms import EmployerProfileForm,JobForm,JobUpdateForm
-from employer.models import EmployerProfile,Jobs
+from employer.models import EmployerProfile,Jobs,Applications
 
 # Create your views here.
 
@@ -59,3 +59,12 @@ class JobEditView(UpdateView):
     template_name = "emp-jobedit.html"
     success_url = reverse_lazy("emp-listjob")
     pk_url_kwarg = "id"
+
+
+class ViewApplicationView(ListView):
+    model = Applications
+    template_name = "emp-viewapplication.html"
+    context_object_name = "vw_app"
+
+    def get_queryset(self):
+        return Applications.objects.filter(job=self.kwargs.get("id"))

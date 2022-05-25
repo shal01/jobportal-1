@@ -39,6 +39,13 @@ class CandidateJobDetailView(DetailView):
     pk_url_kwarg = "id"
     context_object_name = "job"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        qs = Applications.objects.filter(applicant=self.request.user, job=self.object)
+        print(qs)
+        context["status"] = qs
+        return context
+
 
 def apply_now(request,*args,**kwargs):
     job_id = kwargs.get("id")
@@ -46,3 +53,12 @@ def apply_now(request,*args,**kwargs):
     applicant = request.user
     Applications.objects.create(applicant=applicant,job=job)
     return redirect("cand-home")
+
+
+class MyApplicationView(ListView):
+    model = Applications
+    template_name = "cand-appliedjobs.html"
+    context_object_name = "applied"
+
+    def get_queryset(self):
+        return Applications.objects.filter(applicant=self.request.user)
