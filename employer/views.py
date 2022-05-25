@@ -61,10 +61,18 @@ class JobEditView(UpdateView):
     pk_url_kwarg = "id"
 
 
-class ViewApplicationView(ListView):
+class ViewApplicationsView(ListView):
     model = Applications
     template_name = "emp-viewapplication.html"
     context_object_name = "vw_app"
 
     def get_queryset(self):
         return Applications.objects.filter(job=self.kwargs.get("id"))
+
+
+class ApplicantProfileView(DetailView):
+    model = Applications
+    template_name = "emp-applntprof.html"
+    context_object_name = "apt"
+    pk_url_kwarg = "id"
+
