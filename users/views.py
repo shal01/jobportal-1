@@ -4,6 +4,8 @@ from users.models import User
 from users.forms import UserRegistrationForm,LoginForm
 from django.urls import reverse_lazy
 from django.contrib.auth import authenticate,login,logout
+from django.utils.decorators import method_decorator
+from users.decorators import signin_required
 
 
 # Create your views here.
@@ -39,6 +41,7 @@ class HomeView(TemplateView):
     template_name = "home.html"
 
 
-def sign_out(request,*args,**kwargs):
+@signin_required
+def sign_out(request, *args, **kwargs):
     logout(request)
     return redirect("users-home")

@@ -1,6 +1,8 @@
 from django.shortcuts import render,redirect
-from django.views.generic import TemplateView,CreateView,ListView,DetailView,UpdateView
 from django.urls import reverse_lazy
+from django.utils.decorators import method_decorator
+from users.decorators import signin_required
+from django.views.generic import TemplateView,CreateView,ListView,DetailView,UpdateView
 from employer.forms import EmployerProfileForm,JobForm,JobUpdateForm
 from employer.models import EmployerProfile,Jobs,Applications
 from django.core.mail import send_mail
@@ -8,10 +10,12 @@ from django.core.mail import send_mail
 # Create your views here.
 
 
+@method_decorator(signin_required, name="dispatch")
 class EmployerHomeView(TemplateView):
     template_name = "emp-home.html"
 
 
+@method_decorator(signin_required, name="dispatch")
 class EmployerProfileCreateView(CreateView):
     model = EmployerProfile
     form_class = EmployerProfileForm
@@ -23,10 +27,21 @@ class EmployerProfileCreateView(CreateView):
         return super().form_valid(form)
 
 
+@method_decorator(signin_required, name="dispatch")
 class EmployeeProfileDetailView(TemplateView):
     template_name = "emp-myprofile.html"
 
 
+@method_decorator(signin_required, name="dispatch")
+class EmployerProfileUpdateView(UpdateView):
+    model = EmployerProfile
+    template_name = "emp-updateprofile.html"
+    form_class = EmployerProfileForm
+    success_url = reverse_lazy("emp-profdetail")
+    pk_url_kwarg = "id"
+
+
+@method_decorator(signin_required, name="dispatch")
 class JobCreateView(CreateView):
     model = Jobs
     form_class = JobForm
@@ -38,6 +53,7 @@ class JobCreateView(CreateView):
         return super().form_valid(form)
 
 
+@method_decorator(signin_required, name="dispatch")
 class EmployerJobListView(ListView):
     model = Jobs
     context_object_name = "jobs"
@@ -47,6 +63,7 @@ class EmployerJobListView(ListView):
         return Jobs.objects.filter(posted_by=self.request.user)
 
 
+@method_decorator(signin_required, name="dispatch")
 class JobDetailView(DetailView):
     model = Jobs
     template_name = "emp-jobdetail.html"
@@ -54,6 +71,7 @@ class JobDetailView(DetailView):
     pk_url_kwarg = "id"
 
 
+@method_decorator(signin_required, name="dispatch")
 class JobEditView(UpdateView):
     model = Jobs
     form_class = JobUpdateForm
@@ -62,6 +80,7 @@ class JobEditView(UpdateView):
     pk_url_kwarg = "id"
 
 
+@method_decorator(signin_required, name="dispatch")
 class ViewApplicationsView(ListView):
     model = Applications
     template_name = "emp-viewapplication.html"
@@ -71,6 +90,7 @@ class ViewApplicationsView(ListView):
         return Applications.objects.filter(job=self.kwargs.get("id"), status="applied")
 
 
+@method_decorator(signin_required, name="dispatch")
 class ApplicantProfileView(DetailView):
     model = Applications
     template_name = "emp-applntprof.html"
@@ -78,6 +98,7 @@ class ApplicantProfileView(DetailView):
     pk_url_kwarg = "id"
 
 
+@signin_required
 def update_application(request,*args,**kwargs):
     app_id = kwargs.get("id")
     qs = Applications.objects.get(id=app_id)
@@ -86,6 +107,7 @@ def update_application(request,*args,**kwargs):
     return redirect("emp-listjob")
 
 
+@signin_required
 def accept_application(request,*args,**kwargs):
     app_id = kwargs.get("id")
     qs = Applications.objects.get(id=app_id)

@@ -6,3 +6,9 @@ class CandidateProfileForm(forms.ModelForm):
     class Meta:
         model = CandidateProfile
         exclude = ("user",)
+
+
+# class CandidateProfileUpdateForm(forms.ModelForm):
+#     class Meta:
+#         model = CandidateProfile
+#         exclude = ("user",)
