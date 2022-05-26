@@ -4,12 +4,17 @@ from candidate.forms import CandidateProfileForm
 from django.views.generic import TemplateView,CreateView,ListView,DetailView
 from candidate.models import CandidateProfile
 from employer.models import Jobs,Applications
+from candidate.filters import JobFilter
 
 
 # Create your views here.
 
 class CandidateHomeView(TemplateView):
     template_name = "cand-home.html"
+
+    def get(self, request, *args, **kwargs):
+        filter = JobFilter(request.GET,queryset=Jobs.objects.all())
+        return render(request, "cand-home.html", {"filter":filter})
 
 
 class CandidateProfileCreateView(CreateView):

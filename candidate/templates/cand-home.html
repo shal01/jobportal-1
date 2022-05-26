@@ -2,6 +2,52 @@
 
 {%block body_block%}
 <h1>hellooo</h1>
+<div class="row">
+    <div class="col-1"></div>
+    <div class="col-10">
+        <form action="" method="get">
+<!--            {{filter.form.as_p}}-->
+            <div class="row">
+                <div class="col-2">posted by : {{filter.form.posted_by}}</div>
+                <div class="col-2">job title : {{filter.form.job_title}}</div>
+                <div class="col-2">role: {{filter.form.role}}</div>
+                <div class="col-2">qualification : {{filter.form.qualification}}</div>
+                <div class="col-2">Salary : {{filter.form.salary}}</div>
+                <div class="col-2">Loaction : {{filter.form.location}}</div>
+            </div>
+            <input type="submit">
+        </form>
+    </div>
+    <div class="col-1"></div>
+</div>
+<div class="row">
+    <div class="col-4"></div>
+    <div class="col-4">
+        <table class="table table-hover">
+                <tr>
+                    <th>Job Title</th>
+                    <th>Experience</th>
+                    <th>Qualification</th>
+                    <th>Role</th>
+                    <th>Last Date</th>
+                    <th>Action</th>
+                </tr>
+                {%for job in filter.qs%}
+                <tr>
+                    <td>{{job.job_title}}</td>
+                    <td>{{job.experience}}</td>
+                    <td>{{job.qualification}}</td>
+                    <td>{{job.role}}</td>
+                    <td>{{job.last_date}}</td>
+                    <td>
+                        <a class="btn btn-outline-primary" href="{%url 'cand-jobdetail' job.id%}">View</a>
+                    </td>
+                </tr>
+                {%endfor%}
+            </table>
+    </div>
+    <div class="col-4"></div>
+</div>
 
 {%endblock%}
 <!--<!DOCTYPE html>-->
