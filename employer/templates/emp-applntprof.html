@@ -18,8 +18,8 @@
                 <li class="list-group-item">CV : <a href="{{apt.applicant.candidates.cv.url}}">{{apt.applicant.candidates.cv}}</a></li>
             </ul>
             <div class="card-body">
-                <a href="#" class="card-link btn btn-success">Accept</a>
-                <a href="#" class="card-link btn btn-danger">Reject</a>
+                <a href="{%url 'emp-a_status' apt.id%}" class="card-link btn btn-success">Accept</a>
+                <a href="{%url 'emp-r_status' apt.id%}" class="card-link btn btn-danger">Reject</a>
             </div>
         </div>
     </div>

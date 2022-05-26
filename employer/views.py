@@ -1,8 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.views.generic import TemplateView,CreateView,ListView,DetailView,UpdateView
 from django.urls import reverse_lazy
 from employer.forms import EmployerProfileForm,JobForm,JobUpdateForm
 from employer.models import EmployerProfile,Jobs,Applications
+from django.core.mail import send_mail
 
 # Create your views here.
 
@@ -67,7 +68,7 @@ class ViewApplicationsView(ListView):
     context_object_name = "vw_app"
 
     def get_queryset(self):
-        return Applications.objects.filter(job=self.kwargs.get("id"))
+        return Applications.objects.filter(job=self.kwargs.get("id"), status="applied")
 
 
 class ApplicantProfileView(DetailView):
@@ -75,4 +76,29 @@ class ApplicantProfileView(DetailView):
     template_name = "emp-applntprof.html"
     context_object_name = "apt"
     pk_url_kwarg = "id"
+
+
+def update_application(request,*args,**kwargs):
+    app_id = kwargs.get("id")
+    qs = Applications.objects.get(id=app_id)
+    qs.status = "rejected"
+    qs.save()
+    return redirect("emp-listjob")
+
+
+def accept_application(request,*args,**kwargs):
+    app_id = kwargs.get("id")
+    qs = Applications.objects.get(id=app_id)
+    qs.status = "accepted"
+    qs.save()
+    send_mail(
+        'Job Notification',
+        'Your resume accepted.',
+        'from@example.com',
+        ['to@example.com'],
+        fail_silently=False,
+    )
+    return redirect("emp-listjob")
+# smarttv7535@gmail.com
+
 

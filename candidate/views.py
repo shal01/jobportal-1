@@ -19,7 +19,7 @@ class CandidateProfileCreateView(CreateView):
     success_url = reverse_lazy("cand-home")
 
     def form_valid(self, form):
-        form.instance.user=self.request.user
+        form.instance.user = self.request.user
         return super().form_valid(form)
 
 
@@ -62,3 +62,12 @@ class MyApplicationView(ListView):
 
     def get_queryset(self):
         return Applications.objects.filter(applicant=self.request.user)
+
+
+class AcceptedApplicationsView(ListView):
+    model = Applications
+    template_name = "cand-accepted.html"
+    context_object_name = "application"
+
+    def get_queryset(self):
+        return Applications.objects.filter(applicant=self.request.user, status="accepted")

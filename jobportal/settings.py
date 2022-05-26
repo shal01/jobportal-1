@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'users',
     'employer',
     'candidate',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
@@ -117,6 +118,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
+# https://docs.file.ehqcxabyzxnuzwre/3.1/
 
 STATIC_URL = 'static/'
 
@@ -125,3 +127,11 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = "users.User"
+
+
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = "587"
+EMAIL_HOST_USER = "anand@gmail.com"
+EMAIL_HOST_PASSWORD = ""
+EMAIL_USE_TLS = True
+# EMAIL_BACKEND = 'django.core.mail'
