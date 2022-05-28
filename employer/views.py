@@ -6,6 +6,7 @@ from django.views.generic import TemplateView,CreateView,ListView,DetailView,Upd
 from employer.forms import EmployerProfileForm,JobForm,JobUpdateForm
 from employer.models import EmployerProfile,Jobs,Applications
 from django.core.mail import send_mail
+from django.contrib import messages
 
 # Create your views here.
 
@@ -37,8 +38,12 @@ class EmployerProfileUpdateView(UpdateView):
     model = EmployerProfile
     template_name = "emp-updateprofile.html"
     form_class = EmployerProfileForm
-    success_url = reverse_lazy("emp-profdetail")
+    success_url = reverse_lazy("emp-home")
     pk_url_kwarg = "id"
+
+    def form_valid(self, form):
+        messages.success(self.request, "profile has been updated")
+        return super().form_valid(form)
 
 
 @method_decorator(signin_required, name="dispatch")
@@ -50,6 +55,7 @@ class JobCreateView(CreateView):
 
     def form_valid(self, form):
         form.instance.posted_by = self.request.user
+        messages.success(self.request, "job has been posted")
         return super().form_valid(form)
 
 
@@ -60,7 +66,7 @@ class EmployerJobListView(ListView):
     template_name = "emp-joblist.html"
 
     def get_queryset(self):
-        return Jobs.objects.filter(posted_by=self.request.user)
+        return Jobs.objects.filter(posted_by=self.request.user).order_by("-created_date")
 
 
 @method_decorator(signin_required, name="dispatch")
@@ -78,6 +84,14 @@ class JobEditView(UpdateView):
     template_name = "emp-jobedit.html"
     success_url = reverse_lazy("emp-listjob")
     pk_url_kwarg = "id"
+
+
+@signin_required
+def job_delete(request, *args, **kwargs):
+    job_id = kwargs.get("id")
+    qs = Jobs.objects.get(id=job_id)
+    qs.delete()
+    return redirect("emp-listjob")
 
 
 @method_decorator(signin_required, name="dispatch")
@@ -116,11 +130,22 @@ def accept_application(request,*args,**kwargs):
     send_mail(
         'Job Notification',
         'Your resume accepted.',
-        'from@example.com',
-        ['to@example.com'],
+        'anandtsreenivasan2000@gmail.com',
+        ['anandtsreenivasan2000@gmail.com'],
         fail_silently=False,
     )
     return redirect("emp-listjob")
 # smarttv7535@gmail.com
+# from@example.com
+#to@example.com
+
+
+class ShortListView(ListView):
+    model = Applications
+    template_name = "emp-shortlist.html"
+    context_object_name = "application"
+
+    def get_queryset(self):
+        return Applications.objects.filter(job=self.kwargs.get("id"), status="accepted")
 
 

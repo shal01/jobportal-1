@@ -20,6 +20,12 @@
                 <li class="list-group-item"><i>Last Date : </i>{{job.last_date}}</li>
                 <li class="list-group-item"><i>Qualification : </i>{{job.qualification}}</li>
             </ul>
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <a href="{%url 'emp-jobedit' job.id%}" class="btn btn-success">Update</a>
+                    <a href="{%url 'emp-jobdelete' job.id%}" class="btn btn-danger">Delete Post</a>
+                </li>
+            </ul>
 
         </div>
         <div class="col-4">
