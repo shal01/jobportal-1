@@ -16,8 +16,8 @@ class CandidateHomeView(TemplateView):
     template_name = "cand-home.html"
 
     def get(self, request, *args, **kwargs):
-        filter = JobFilter(request.GET,queryset=Jobs.objects.all())
-        return render(request, "cand-home.html", {"filter":filter})
+        filter = JobFilter(request.GET, queryset=Jobs.objects.all())
+        return render(request, "cand-home.html", {"filter": filter})
 
 
 @method_decorator(signin_required, name="dispatch")

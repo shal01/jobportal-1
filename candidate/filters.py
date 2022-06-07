@@ -18,3 +18,4 @@ class JobFilter(django_filters.FilterSet):
             "salary",
             "location",
         ]
+

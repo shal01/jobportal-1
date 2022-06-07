@@ -6,6 +6,13 @@ class EmployerProfileForm(forms.ModelForm):
     class Meta:
         model = EmployerProfile
         exclude = ("user",)
+        widgets = {
+            "logo": forms.FileInput(attrs={"class": "form-control"}),
+            "company_name": forms.TextInput(attrs={"class": "form-control"}),
+            "bio": forms.TextInput(attrs={"class": "form-control"}),
+            "location": forms.TextInput(attrs={"class": "form-control"}),
+            "services": forms.TextInput(attrs={"class": "form-control"}),
+        }
 
 
 class JobForm(forms.ModelForm):

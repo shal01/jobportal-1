@@ -11,13 +11,14 @@
                     <h5 class="card-title">{{request.user}}</h5>
                 </div>
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item"><i>Age : </i>{{request.user.candidates.age}}</li>
-                    <li class="list-group-item"><i>Qualification : </i>{{request.user.candidates.qualification}}</li>
-                    <li class="list-group-item"><i>Skills : </i>{{request.user.candidates.skills}}</li>
+                    <li class="list-group-item">Age : {{request.user.candidates.age}}</li>
+                    <li class="list-group-item">Qualification : {{request.user.candidates.qualification}}</li>
+                    <li class="list-group-item">Skills : {{request.user.candidates.skills}}</li>
+                    <li class="list-group-item">CV : <a href="{{request.user.candidates.cv.url}}">{{request.user.candidates.cv}}</a></li>
                 </ul>
                 <div class="card-body">
 <!--                    <a href="#" class="card-link btn btn-outline-info">View</a>-->
-                    <a href="{%url 'cand-profupdate' request.user.candidates.id%}" class="card-link btn btn-outline-info">Edit</a>
+                    <a href="{%url 'cand-profupdate' request.user.candidates.id%}" class="card-link btn btn-info">Edit</a>
                 </div>
             </div>
         </div>
