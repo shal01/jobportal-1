@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{%load static%}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -12,34 +13,37 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
             crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
 </head>
 <body>
-<!--<div class="container-fluid">-->
-    <nav class="navbar navbar-expand-lg bg-light">
-        <a class="navbar-brand" href="#">{{request.user}}</a>
+<nav class="navbar navbar-expand-lg" style="background-color:#8453ed;">
+    <div class="container-fluid">
+
+        <a class="navbar-brand text-white" href="#">Job Portal</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
                 aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav me-auto mb-2 mb-lg-0">
-                <a class="nav-link active" aria-current="page" href="{%url 'emp-home'%}">Home</a>
+                <a class="nav-link active text-white" aria-current="page" href="{%url 'emp-home'%}">Home</a>
                 {%if request.user.employer%}
-                <a class="nav-link" href="{%url 'emp-profdetail'%}">view profile</a>
+                <a class="nav-link text-white" href="{%url 'emp-profdetail'%}">Profile</a>
                 {%else%}
-                <a class="nav-link" href="{%url 'emp-profile'%}">add profile</a>
+                <a class="nav-link text-white" href="{%url 'emp-profile'%}">Add Profile</a>
                 {%endif%}
-                <a class="nav-link" href="{%url 'emp-addjob'%}">Post Job</a>
-                <a class="nav-link" href="{%url 'emp-listjob'%}">Posted Jobs</a>
+                <a class="nav-link text-white" href="{%url 'emp-addjob'%}">Post Job</a>
+                <a class="nav-link text-white" href="{%url 'emp-listjob'%}">Posted Jobs</a>
 
             </div>
             <div class="navbar-nav mr-auto mb-2 mb-lg-0">
-                <a class="btn btn-outline-warning" href="{%url 'signout'%}">logout</a>
+                <a class="btn btn-outline-warning" href="{%url 'signout'%}">Logout</a>
             </div>
         </div>
-    </nav>
-<!--</div>-->
+    </div>
+
+</nav>
 
 {%block body_block%}
 

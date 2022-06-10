@@ -1,7 +1,7 @@
 {%extends 'base_emp.html'%}
 
 {%block body_block%}
-<div class="container">
+<div class="container mt-3">
     <div class="row">
         <div class="col-1"></div>
         <!--        <div class="col-4">-->
@@ -34,10 +34,10 @@
                     <td>{{job.role}}</td>
                     <td>{{job.last_date}}</td>
                     <td>
-                        <a class="btn btn-outline-primary" href="{%url 'emp-jobdetail' job.id%}">Details</a>
+                        <a class="btn btn-outline-info" href="{%url 'emp-jobdetail' job.id%}">Details</a>
 <!--                        <a class="btn btn-outline-primary" href="{%url 'emp-jobedit' job.id%}">Update</a>-->
-                        <a class="btn btn-outline-primary" href="{%url 'emp-viewappl' job.id%}">Applications</a>
-                        <a class="btn btn-outline-primary" href="{%url 'emp-shortlist' job.id%}">Short list</a>
+                        <a class="btn btn-outline-info" href="{%url 'emp-viewappl' job.id%}">Applications</a>
+                        <a class="btn btn-outline-info" href="{%url 'emp-shortlist' job.id%}">Short list</a>
                     </td>
                 </tr>
                 {%endfor%}
