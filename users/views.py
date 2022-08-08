@@ -44,4 +44,4 @@ class HomeView(TemplateView):
 @signin_required
 def sign_out(request, *args, **kwargs):
     logout(request)
-    return redirect("users-home")
+    return redirect("signin")

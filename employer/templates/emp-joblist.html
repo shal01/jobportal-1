@@ -1,21 +1,21 @@
 {%extends 'base_emp.html'%}
 
 {%block body_block%}
-<div class="container mt-3">
+<div class="container-fluid mt-3">
     <div class="row">
         <div class="col-1"></div>
-        <!--        <div class="col-4">-->
-        <!--            {%for job in jobs%}-->
-        <!--            <div class="border border-dark mb-2 mt-2">-->
-        <!--                job_title:{{job.job_title}}-->
-        <!--                experience:{{job.experience}}-->
-        <!--                created_date:{{job.created_date}}-->
-        <!--                <a href="{%url 'emp-jobdetail' job.id%}">Details</a>-->
-        <!--                <a href="">Update</a>-->
-        <!--                <a href="">View Application</a>-->
-        <!--            </div>-->
-        <!--            {%endfor%}-->
-        <!--        </div>-->
+<!--                <div class="col-4">-->
+<!--                    {%for job in jobs%}-->
+<!--                    <div class="border border-dark mb-2 mt-2">-->
+<!--                        job_title:{{job.job_title}}-->
+<!--                        experience:{{job.experience}}-->
+<!--                        created_date:{{job.created_date}}-->
+<!--                        <a href="{%url 'emp-jobdetail' job.id%}">Details</a>-->
+<!--                        <a href="">Update</a>-->
+<!--                        <a href="">View Application</a>-->
+<!--                    </div>-->
+<!--                    {%endfor%}-->
+<!--                </div>-->
         <div class="col-10">
             <table class="table table-hover">
                 <tr>
@@ -23,6 +23,7 @@
                     <th>Experience</th>
                     <th>Qualification</th>
                     <th>Role</th>
+                    <th>Created Date</th>
                     <th>Last Date</th>
                     <th>Action</th>
                 </tr>
@@ -32,6 +33,7 @@
                     <td>{{job.experience}}</td>
                     <td>{{job.qualification}}</td>
                     <td>{{job.role}}</td>
+                    <td>{{job.created_date}}</td>
                     <td>{{job.last_date}}</td>
                     <td>
                         <a class="btn btn-outline-info" href="{%url 'emp-jobdetail' job.id%}">Details</a>

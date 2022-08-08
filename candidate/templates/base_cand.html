@@ -31,7 +31,7 @@
                 {%if request.user.candidates%}
                 <a class="nav-link text-white" href="{%url 'cand-profdetail'%}">Profile</a>
                 {%else%}
-                <a class="nav-link" href="{%url 'cand-addprofile'%}">Add Profile</a>
+                <a class="nav-link text-white" href="{%url 'cand-addprofile'%}">Add Profile</a>
                 {%endif%}
                 <a class="nav-link text-white" href="{%url 'cand-joblist'%}">Jobs</a>
                 <a class="nav-link text-white" href="{%url 'cand-myapplic'%}">Applied Jobs</a>

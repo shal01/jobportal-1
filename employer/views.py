@@ -1,10 +1,10 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from users.decorators import signin_required
-from django.views.generic import TemplateView,CreateView,ListView,DetailView,UpdateView
-from employer.forms import EmployerProfileForm,JobForm,JobUpdateForm
-from employer.models import EmployerProfile,Jobs,Applications
+from django.views.generic import TemplateView, CreateView, ListView, DetailView, UpdateView, dates
+from employer.forms import EmployerProfileForm, JobForm, JobUpdateForm
+from employer.models import EmployerProfile, Jobs, Applications
 from django.core.mail import send_mail
 from django.contrib import messages
 
@@ -55,6 +55,13 @@ class JobCreateView(CreateView):
 
     def form_valid(self, form):
         form.instance.posted_by = self.request.user
+        present_date = dates.timezone_today()
+        print(present_date)
+        last_date = form.cleaned_data.get("last_date")
+        if last_date <= present_date:
+            return redirect("emp-addjob")
+        else:
+            form.save()
         messages.success(self.request, "job has been posted")
         return super().form_valid(form)
 
@@ -85,6 +92,16 @@ class JobEditView(UpdateView):
     success_url = reverse_lazy("emp-listjob")
     pk_url_kwarg = "id"
 
+    # def form_valid(self, form):
+    #     form.instance.posted_by = self.request.user
+    #     present_date = dates.timezone_today()
+    #     last_date = form.cleaned_data.get("last_date")
+    #     if last_date >= present_date:
+    #         form.save()
+    #     else:
+    #         return redirect("emp-jobedit")
+    #     return super().form_valid(form)
+
 
 @signin_required
 def job_delete(request, *args, **kwargs):
@@ -113,7 +130,7 @@ class ApplicantProfileView(DetailView):
 
 
 @signin_required
-def update_application(request,*args,**kwargs):
+def update_application(request, *args, **kwargs):
     app_id = kwargs.get("id")
     qs = Applications.objects.get(id=app_id)
     qs.status = "rejected"
@@ -122,7 +139,7 @@ def update_application(request,*args,**kwargs):
 
 
 @signin_required
-def accept_application(request,*args,**kwargs):
+def accept_application(request, *args, **kwargs):
     app_id = kwargs.get("id")
     qs = Applications.objects.get(id=app_id)
     qs.status = "accepted"
@@ -135,11 +152,12 @@ def accept_application(request,*args,**kwargs):
         fail_silently=False,
     )
     return redirect("emp-listjob")
-# smarttv7535@gmail.com
+
+
 # from@example.com
-#to@example.com
+# to@example.com
 
-
+@method_decorator(signin_required, name="dispatch")
 class ShortListView(ListView):
     model = Applications
     template_name = "emp-shortlist.html"
@@ -147,5 +165,4 @@ class ShortListView(ListView):
 
     def get_queryset(self):
         return Applications.objects.filter(job=self.kwargs.get("id"), status="accepted")
-
 

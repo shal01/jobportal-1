@@ -10,7 +10,14 @@ class EmployerProfile(models.Model):
     company_name = models.CharField(max_length=120)
     bio = models.CharField(max_length=120)
     location = models.CharField(max_length=120)
-    services = models.CharField(max_length=200)
+    options = (
+        ("Software services", "Software services"),
+        ("Training services", "Training services"),
+        ("Consulting services", "Consulting services"),
+        ("Security services", "Security services"),
+        ("Marketing services", "Marketing services")
+    )
+    services = models.CharField(max_length=30, choices=options)
 
 
 class Jobs(models.Model):

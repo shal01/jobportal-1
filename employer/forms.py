@@ -11,7 +11,7 @@ class EmployerProfileForm(forms.ModelForm):
             "company_name": forms.TextInput(attrs={"class": "form-control"}),
             "bio": forms.TextInput(attrs={"class": "form-control"}),
             "location": forms.TextInput(attrs={"class": "form-control"}),
-            "services": forms.TextInput(attrs={"class": "form-control"}),
+            "services": forms.Select(attrs={"class": "form-select"})
         }
 
 
